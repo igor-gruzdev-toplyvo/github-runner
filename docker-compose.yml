@@ -5,7 +5,6 @@ networks:
     external: false
 
 volumes:
-  docker-data: null
   runner-data:
     driver: local
     driver_opts:
@@ -25,9 +24,7 @@ services:
       args:
         UBUNTU_VERSION: ${UBUNTU_VERSION}
     volumes:
-      - docker-data:/var/lib/docker/btrfs
       - runner-data:/home/runner
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - github-actions
-    cap_add:
-      - NET_ADMIN
