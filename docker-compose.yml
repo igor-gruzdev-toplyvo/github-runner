@@ -1,0 +1,33 @@
+version: "3.8"
+
+networks:
+  github-actions:
+    external: false
+
+volumes:
+  docker-data: null
+  runner-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/runner
+      o: bind
+
+services:
+  github-runner:
+    container_name: github-runner
+    restart: always
+    env_file:
+      - .env
+    build:
+      context: $PWD/docker/github-runner
+      dockerfile: Dockerfile
+      args:
+        UBUNTU_VERSION: ${UBUNTU_VERSION}
+    volumes:
+      - docker-data:/var/lib/docker/btrfs
+      - runner-data:/home/runner
+    networks:
+      - github-actions
+    cap_add:
+      - NET_ADMIN
