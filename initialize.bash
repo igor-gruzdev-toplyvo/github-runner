@@ -29,6 +29,7 @@ function download_runner {
 function initialize_runner {
     if [ ! -f "$ROOT_PATH/runner/actions-runner/.credentials" ]; then
         bash $ROOT_PATH/runner/actions-runner/config.sh --url $GIT_URL --token $GIT_TOKEN
+
         printf "\n###        RUNNER INITIALIZED!        ###\n"
     else
         printf "\n### RUNNER CREDENTIALS ALREADY EXIST! ###\n\n"
@@ -36,9 +37,9 @@ function initialize_runner {
 }
 
 function deploy_project {
-    cd $ROOT_PATH 
+    cd $ROOT_PATH
 
-    docker-compose build --no-cache && docker-compose up -d 
+    docker-compose build --no-cache && docker-compose up -d
 
     printf "\n###     PROJECT DEPLOYED SUCCESSFULLY!     ###\n"
 }

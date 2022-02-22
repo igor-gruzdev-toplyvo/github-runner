@@ -25,8 +25,6 @@ RUN useradd -m runner -s /bin/bash && usermod -G "sudo,docker" -a runner
 
 RUN printf "\nrunner ALL = NOPASSWD: ALL\n" >> /etc/sudoers
 
-COPY docker-entrypoint.sh /usr/local/bin/
-
 USER runner
 
 ENTRYPOINT [ "/bin/bash" ]
